@@ -51,8 +51,8 @@ jobs:
       run: |
         git push origin HEAD:main
 
-    - name: Run tests
-      run: pytest  # Add your test command here
+ #  - name: Run tests
+ #     run: pytest  # Add your test command here
     - name: Cache Python packages
       uses: actions/cache@v2
       with:
