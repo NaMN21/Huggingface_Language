@@ -53,6 +53,14 @@ jobs:
 
     - name: Run tests
       run: pytest  # Add your test command here
+    - name: Cache Python packages
+      uses: actions/cache@v2
+      with:
+        path: ~/.cache/pip
+        key: ${{ runner.os }}-pip-${{ hashFiles('**/requirements.txt') }}
+        restore-keys: |
+             ${{ runner.os }}-pip-
+
     env:
       GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }} # or your personal access token
     
