@@ -18,27 +18,27 @@ jobs:
       with:
         python-version: '3.12'
 
-      - name: Install dependencies
-        run: |
-          python -m pip install --upgrade pip
-          pip install -r requirements.txt
+    - name: Install dependencies
+      run: |
+        python -m pip install --upgrade pip
+        pip install -r requirements.txt
 
-      - name: Run model training or inference
-        run: |
-          app.py  # Replace with your script name
+    - name: Run model training or inference
+      run: |
+        python app.py  # Use python to execute your script
 
-      - name: Add output files to git
-        run: |
-          git config --local user.email "nassarmn216@yahoo.com"
-          git config --local user.name "NaMN21"
-          git add logs 
-          git commit -m "Update model output files" || echo "No changes to commit"
+    - name: Add output files to git
+      run: |
+        git config --local user.email "nassarmn216@yahoo.com"
+        git config --local user.name "NaMN21"
+        git add logs 
+        git commit -m "Update model output files" || echo "No changes to commit"
 
-      - name: Push changes
-        env:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-        run: |
-          git push origin HEAD:main
+    - name: Push changes
+      env:
+        GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+      run: |
+        git push origin HEAD:main
 
-      - name: Run tests
-        run: pytest  # Add your test command here
+    - name: Run tests
+      run: pytest  # Add your test command here
