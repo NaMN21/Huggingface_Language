@@ -51,3 +51,12 @@ jobs:
 
     - name: Run tests
       run: pytest  # Add your test command here
+env:
+  GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }} # or your personal access token
+steps:
+  - name: Checkout code
+    uses: actions/checkout@v2
+    with:
+      token: ${{ secrets.GITHUB_TOKEN }} # replace with your token if not using the default
+permissions:
+  contents: write # Grant write access to the repository contents
