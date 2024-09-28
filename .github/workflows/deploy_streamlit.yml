@@ -40,8 +40,7 @@ jobs:
     - name: Add output files to git
       run: |
         git config --local user.email "nassarmn216@yahoo.com"
-        git config --local user.name "NaMN21"
-        git add logs 
+        git config --local user.name "NaMN21" 
         git commit -m "Update model output files" || echo "No changes to commit"
 
     - name: Push changes
