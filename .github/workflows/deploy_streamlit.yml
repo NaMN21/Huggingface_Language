@@ -18,18 +18,27 @@ jobs:
       with:
         python-version: '3.12'
 
-    - name: Clean pip cache
-      run: |
-        pip cache purge
+      - name: Install dependencies
+        run: |
+          python -m pip install --upgrade pip
+          pip install -r requirements.txt
 
-    - name: Upgrade pip
-      run: |
-        python -m pip install --upgrade pip
+      - name: Run model training or inference
+        run: |
+          app.py  # Replace with your script name
 
-    - name: Install dependencies
-      run: |
-        pip install -r requirements.txt --verbose
+      - name: Add output files to git
+        run: |
+          git config --local user.email "nassarmn216@yahoo.com"
+          git config --local user.name "NaMN21"
+          git add logs 
+          git commit -m "Update model output files" || echo "No changes to commit"
 
-    - name: Deploy (your deployment steps here)
-      run: |
-        echo "Deployment step here"
+      - name: Push changes
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        run: |
+          git push origin HEAD:main
+
+      - name: Run tests
+        run: pytest  # Add your test command here
