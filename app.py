@@ -48,7 +48,7 @@ model = AutoModelForSeq2SeqLM.from_pretrained("Helsinki-NLP/opus-mt-en-ru")
 # Initialize translation and grammar correction pipelines
 translatorea = pipeline('translation_en_to_ar', model='Helsinki-NLP/opus-mt-en-ar')
 translatorae = pipeline('translation_en_to_ar', model='Helsinki-NLP/opus-mt-ar-en')
-grammar_corrector = pipeline('text2text-generation', model='onionLad/grammar-correction-t5-base')
+grammar_corrector = pipeline('text2text-generation', model='onionLad/grammar-correction-t5-base',weights_only=True)
 
 # Title and input field
 st.title("Language Translation & Grammar Correction")
@@ -107,4 +107,4 @@ if st.button("Submit"):
             corrected_text = result[0]['generated_text']
             st.write("Corrected Text:", corrected_text)
         else:
-            st.warning("Please enter some text for grammar correction.")
+            st.warning("Please enter some text for grammarcorrection.")
