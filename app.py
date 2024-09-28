@@ -48,11 +48,11 @@ model = AutoModelForSeq2SeqLM.from_pretrained("Helsinki-NLP/opus-mt-en-ru")
 # Initialize translation and grammar correction pipelines
 translatorea = pipeline('translation_en_to_ar', model='Helsinki-NLP/opus-mt-en-ar')
 translatorae = pipeline('translation_en_to_ar', model='Helsinki-NLP/opus-mt-ar-en')
-grammar_corrector = pipeline('text2text-generation', model='onionLad/grammar-correction-t5-base',weights_only=True,force_download=True)
-try:
-    tokenizer = AutoTokenizer.from_pretrained('onionLad/grammar-correction-t5-base')
-except Exception as e:
-    print(f"Tokenizer error: {e}")
+grammar_corrector = pipeline('text2text-generation', model='t5-base',weights_only=True)
+# try:
+#     tokenizer = AutoTokenizer.from_pretrained('onionLad/grammar-correction-t5-base')
+# except Exception as e:
+#     print(f"Tokenizer error: {e}")
 
 # Title and input field
 st.title("Language Translation & Grammar Correction")
