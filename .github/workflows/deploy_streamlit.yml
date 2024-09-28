@@ -20,8 +20,12 @@ jobs:
 
     - name: Install dependencies
       run: |
-        python -m pip install --upgrade pip
-        pip install -r requirements.txt
+        python -m pip install --upgrade pip setuptools wheel
+        sudo apt-get install -y build-essential  # Only if needed
+        pip install --no-cache-dir -r requirements.txt
+    - name: Install system dependencies
+      run: sudo apt-get install -y build-essential
+
 
     - name: Run model training or inference
       run: |
