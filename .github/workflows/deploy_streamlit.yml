@@ -18,12 +18,6 @@ jobs:
       with:
         python-version: '3.10'  # Use a compatible Python version
 
-    # Install Rust if required, make sure PATH is properly updated
-    - name: Install Rust
-      run: |
-        curl --proto '=https' --tlsv1.2 -sSf https://sh.rustup.rs | sh -s -- -y
-        source $HOME/.cargo/env
-
     # Install build tools, ensure dependencies for tokenizers if needed
     - name: Install additional build tools
       run: |
