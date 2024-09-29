@@ -109,9 +109,16 @@ if st.button("Submit"):
         tokenizer = AutoTokenizer.from_pretrained("onionLad/grammar-correction-t5-base")
         grammar_corrector = AutoModelForSeq2SeqLM.from_pretrained("onionLad/grammar-correction-t5-base")        
         if input_text.strip():
-            # Call the grammar correction pipeline
-            result = grammar_corrector(input_text)
-            corrected_text = result[0]['generated_text']
-            st.write("Corrected Text:", corrected_text)
+    # Tokenize the input text
+            inputs = tokenizer(input_text, return_tensors="pt")
+
+            # Call the grammar correction model
+            outputs = grammar_corrector.generate(**inputs)
+
+            # Decode the output tokens to get the corrected text
+            corrected_text = tokenizer.decode(outputs[0], skip_special_tokens=True)
+
+            # Display the corrected text
+            st.write("Corrected Text:", corrected_text)       
         else:
             st.warning("Please enter some text for grammar correction.")
