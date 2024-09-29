@@ -2,6 +2,7 @@ pip>=24.2
 streamlit==1.22.0
 transformers==4.11.3
 torch==2.4.1
+requests==2.31.0
 pyngrok==5.1.0
 sentencepiece
 sacremoses

@@ -1,61 +1,11 @@
-name: Build and Deploy
-
-on:
-  push:
-    branches:
-      - main
-
-jobs:
-  build-and-deploy:
-    runs-on: ubuntu-latest
-
-    steps:
-    - name: Checkout code
-      uses: actions/checkout@v2
-
-    - name: Set up Python
-      uses: actions/setup-python@v2
-      with:
-        python-version: '3.10'  # Use a compatible Python version
-
-    # Install Python dependencies including Streamlit
-    - name: Install dependencies
-      run: |
-        python -m pip install --upgrade pip setuptools wheel
-        pip install --no-cache-dir -r requirements.txt
-    #    pip install streamlit  # Ensure Streamlit is installed
-
-    # Run the app using Streamlit (adjust if you're not using 'app.py')
-  #  - name: Run Streamlit App
-   #   run: |
-    #    streamlit run app.py  # Change 'app.py' to your actual app script
-
-    - name: Add output files to git
-      run: |
-        git config --local user.email "nassarmn216@yahoo.com"
-        git config --local user.name "NaMN21"
-        git commit -m "Update model output files" || echo "No changes to commit"
-
-    - name: Push changes
-      env:
-        GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-      run: |
-        git push origin HEAD:main
-
-    # Optional test step (uncomment and add tests if needed)
-    # - name: Run tests
-    #   run: pytest
-
-    - name: Cache Python packages
-      uses: actions/cache@v2
-      with:
-        path: ~/.cache/pip
-        key: ${{ runner.os }}-pip-${{ hashFiles('**/requirements.txt') }}
-        restore-keys: |
-          ${{ runner.os }}-pip-
-
-    env:
-      GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-
-    permissions:
-      contents: write  # Grant write access to the repository contents
+app:
+  title: "Language Translation & Grammar Correction"
+  description: "A Streamlit app for translating text between different languages and correcting grammar."
+  version: "1.0.0"
+  authors:
+    - name: "Your Name"
+      email: "your.email@example.com"
+  dependencies:
+    - streamlit
+    - transformers
+    - torch
