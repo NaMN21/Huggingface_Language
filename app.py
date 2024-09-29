@@ -103,7 +103,11 @@ if st.button("Submit"):
             st.write("Translated Text:", translated_text)
 
     elif task == "Grammar Correction":
-        grammar_corrector = pipeline('text2text-generation', model='onionLad/grammar-correction-t5-base')
+        # grammar_corrector = pipeline('text2text-generation', model='onionLad/grammar-correction-t5-base')
+        # Load model directly
+        from transformers import AutoTokenizer, AutoModelForSeq2SeqLM
+        tokenizer = AutoTokenizer.from_pretrained("onionLad/grammar-correction-t5-base")
+        grammar_corrector = AutoModelForSeq2SeqLM.from_pretrained("onionLad/grammar-correction-t5-base")        
         if input_text.strip():
             # Call the grammar correction pipeline
             result = grammar_corrector(input_text)
