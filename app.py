@@ -1,58 +1,13 @@
-from transformers import pipeline
-
-translatorce = pipeline("translation", model="Helsinki-NLP/opus-mt-zh-en")   
-  # Load model directly
-from transformers import AutoTokenizer, AutoModelForSeq2SeqLM
-
-tokenizer = AutoTokenizer.from_pretrained("Helsinki-NLP/opus-mt-zh-en")
-model = AutoModelForSeq2SeqLM.from_pretrained("Helsinki-NLP/opus-mt-zh-en")
-
-# Use a pipeline as a high-level helper
-from transformers import pipeline
-
-translatorre = pipeline("translation", model="Helsinki-NLP/opus-mt-ru-en")
-# Load model directly
-from transformers import AutoTokenizer, AutoModelForSeq2SeqLM
-
-tokenizer = AutoTokenizer.from_pretrained("Helsinki-NLP/opus-mt-ru-en")
-model = AutoModelForSeq2SeqLM.from_pretrained("Helsinki-NLP/opus-mt-ru-en")
-from transformers import pipeline
-
-translatorec = pipeline("translation", model="Helsinki-NLP/opus-mt-en-zh")
-# Load model directly
-from transformers import AutoTokenizer, AutoModelForSeq2SeqLM
-
-tokenizer = AutoTokenizer.from_pretrained("Helsinki-NLP/opus-mt-en-zh")
-model = AutoModelForSeq2SeqLM.from_pretrained("Helsinki-NLP/opus-mt-en-zh")
-# Load model directly
-from transformers import AutoTokenizer, AutoModelForSeq2SeqLM
-
-tokenizer = AutoTokenizer.from_pretrained("Helsinki-NLP/opus-mt-ar-en")
-model = AutoModelForSeq2SeqLM.from_pretrained("Helsinki-NLP/opus-mt-ar-en")
-# Load model directly
-from transformers import AutoTokenizer, AutoModelForSeq2SeqLM
-
-tokenizer = AutoTokenizer.from_pretrained("Helsinki-NLP/opus-mt-en-ar")
-model = AutoModelForSeq2SeqLM.from_pretrained("Helsinki-NLP/opus-mt-en-ar")
-import streamlit as st
-from transformers import pipeline
-# Use a pipeline as a high-level helper
-from transformers import pipeline
-
-translatorer = pipeline("translation", model="Helsinki-NLP/opus-mt-en-ru")   
-  # Load model directly
-from transformers import AutoTokenizer, AutoModelForSeq2SeqLM
-
-tokenizer = AutoTokenizer.from_pretrained("Helsinki-NLP/opus-mt-en-ru")
-model = AutoModelForSeq2SeqLM.from_pretrained("Helsinki-NLP/opus-mt-en-ru")
 # Initialize translation and grammar correction pipelines
-translatorea = pipeline('translation_en_to_ar', model='Helsinki-NLP/opus-mt-en-ar')
-translatorae = pipeline('translation_en_to_ar', model='Helsinki-NLP/opus-mt-ar-en')
-grammar_corrector = pipeline('text2text-generation', model='t5-base',weights_only=True)
-# try:
-#     tokenizer = AutoTokenizer.from_pretrained('onionLad/grammar-correction-t5-base')
-# except Exception as e:
-#     print(f"Tokenizer error: {e}")
+from transformers import pipeline
+import streamlit as st
+#translatorer = pipeline("translation", model="Helsinki-NLP/opus-mt-en-ru")  
+#translatorre = pipeline("translation", model="Helsinki-NLP/opus-mt-ru-en")
+#translatorce = pipeline("translation", model="Helsinki-NLP/opus-mt-zh-en")   
+#translatorec = pipeline("translation", model="Helsinki-NLP/opus-mt-en-zh")
+#translatorea = pipeline('translation_en_to_ar', model='Helsinki-NLP/opus-mt-en-ar')
+#translatorae = pipeline('translation_en_to_ar', model='Helsinki-NLP/opus-mt-ar-en')
+
 
 # Title and input field
 st.title("Language Translation & Grammar Correction")
@@ -69,46 +24,90 @@ if st.button("Submit"):
         if input_text.strip():
             # Call the translation pipeline
             if lan4 == "Arabic" and lan2 == "English":
+                translatorae = pipeline('translation_en_to_ar', model='Helsinki-NLP/opus-mt-ar-en')
                 result = translatorae(input_text)
+
+
             elif lan4 == "English" and lan2 == "Arabic":
+                translatorea = pipeline('translation_en_to_ar', model='Helsinki-NLP/opus-mt-en-ar')
                 result=translatorea(input_text)
+
+
             elif lan4 == "English" and lan2 == "Russian":
+                translatorer = pipeline("translation", model="Helsinki-NLP/opus-mt-en-ru")
                 result=translatorer(input_text)
+
+
             elif lan4 == "Russian" and lan2 == "English":
+                translatorre = pipeline("translation", model="Helsinki-NLP/opus-mt-ru-en")
                 result=translatorre(input_text)
+
+
             elif lan4 == "English" and lan2 == "Chinese":
+                translatorec = pipeline("translation", model="Helsinki-NLP/opus-mt-en-zh")
                 result = translatorec(input_text)
+
+
             elif lan4 == "Chinese" and lan2 == "English":
+                translatorce = pipeline("translation", model="Helsinki-NLP/opus-mt-zh-en")
                 result = translatorce(input_text)
+
+
             elif lan4 == "Arabic" and lan2 == "Chinese":
+                translatorae = pipeline('translation_en_to_ar', model='Helsinki-NLP/opus-mt-ar-en')
+                translatorec = pipeline("translation", model="Helsinki-NLP/opus-mt-en-zh")
                 result = translatorae(input_text)
                 result = translatorec(result[0]['translation_text'])
+
+
             elif lan4 == "Chinese" and lan2 == "Arabic":
+                translatorce = pipeline("translation", model="Helsinki-NLP/opus-mt-zh-en") 
+                translatorea = pipeline('translation_en_to_ar', model='Helsinki-NLP/opus-mt-en-ar')
                 result = translatorce(input_text)
                 result = translatorea(result[0]['translation_text'])
+
+
             elif lan4 == "Chinese" and lan2 == "Russian":
+                translatorce = pipeline("translation", model="Helsinki-NLP/opus-mt-zh-en")
+                translatorer = pipeline("translation", model="Helsinki-NLP/opus-mt-en-ru") 
                 result = translatorce(input_text)
                 result = translatorer(result[0]['translation_text'])
+
+
             elif lan4 == "Russian" and lan2 == "Chinese":
+                translatorre = pipeline("translation", model="Helsinki-NLP/opus-mt-ru-en")
+                translatorec = pipeline("translation", model="Helsinki-NLP/opus-mt-en-zh")
                 result = translatorre(input_text)
                 result = translatorec(result[0]['translation_text'])
+
+
             elif lan4 == "Arabic" and lan2 == "Russian":
+                translatorae = pipeline('translation_en_to_ar', model='Helsinki-NLP/opus-mt-ar-en')
+                translatorer = pipeline("translation", model="Helsinki-NLP/opus-mt-en-ru") 
                 result = translatorae(input_text)
                 result = translatorer(result[0]['translation_text'])
+
+
             elif lan4 == "Russian" and lan2 == "Arabic":
+                translatorre = pipeline("translation", model="Helsinki-NLP/opus-mt-ru-en")
+                translatorea = pipeline('translation_en_to_ar', model='Helsinki-NLP/opus-mt-en-ar')
                 result = translatorre(input_text)
                 result = translatorea(result[0]['translation_text'])
+
                 
+            else:
+                st.warning("Please enter some text to translate.")
         
-            st.warning("Please enter some text to translate.")
+            
             translated_text = result[0]['translation_text']
             st.write("Translated Text:", translated_text)
 
     elif task == "Grammar Correction":
+        grammar_corrector = pipeline('text2text-generation', model='onionLad/grammar-correction-t5-base')
         if input_text.strip():
             # Call the grammar correction pipeline
             result = grammar_corrector(input_text)
             corrected_text = result[0]['generated_text']
             st.write("Corrected Text:", corrected_text)
         else:
-            st.warning("Please enter some text for grammarcorrection.")
+            st.warning("Please enter some text for grammar correction.")
